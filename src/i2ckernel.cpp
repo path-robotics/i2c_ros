@@ -34,7 +34,15 @@
 *
 * Author: Bruno Gouveia on 10/28/2013
 *********************************************************************/
-
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdint.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <linux/i2c-dev.h>
+#include <ros/ros.h>
 #include "i2ckernel.h"
 
 using namespace cereal;
@@ -42,20 +50,118 @@ using namespace cereal;
 //TODO: use of linux i2c dev
 
 void I2Ckernel::open(i2c_paramaters& parameters){
+  
+  //TODO: check if changing speed is possible from driver
+   if (!i2c_fd) {
+
+     i2c_fd = open(parameters.devicename, O_RDWR);
+
+     if (i2c_fd < 0) {
+        ROS_FATAL("I2C_ROS - %s - Failed to Open I2C Bus %s", __FUNCTION__,parameters.devicename);
+        i2c_fd = 0;
+        ROS_BREAK();
+      }
+    }
 
 }
 
 void I2Ckernel::close(){
-
+	if (i2c_fd) {
+                close(i2c_fd);
+                i2c_fd = 0;
+                current_slave = 0;
+        }
 }
 
 int I2Ckernel::read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
-    //TODO: return bytes read
-    return 1;
+    
+   int tries, result, total;
 
+        if (write(address, reg, NULL,0))
+                return -1;
+
+        total = 0;
+        tries = 0;
+
+        while (total < numBytes && tries < 5) {
+                result = read(i2c_fd, bytes + total, numBytes - total);
+
+                if (result < 0) {
+                        ROS_WARN("I2C_ROS - %s - Error read", __FUNCTION__);
+                        break;
+                }
+
+                total += result;
+
+                if (total == length)
+                        break;
+
+                tries++;    
+		usleep(10);
+        }
+
+        if (total < numBytes)
+                return 0;
+	
+    return 1;
 }
 
 int I2Ckernel:: write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
-    //TODO: return bytes written
+    
+  int result, i;
+
+        if (numBytes > MAX_WRITE_LEN) {
+  		ROS_WARN("I2C_ROS - %s - Max write length exceeded", __FUNCTION__);
+                return 0;
+        }
+
+        if (i2c_select_slave(address))
+                return 0;
+
+        if (length == 0) {
+                result = write(i2c_fd, &reg, 1);
+
+                if (result < 0) {
+                        ROS_WARN("I2C_ROS - %s - error write:1",__FUNCTION__);
+                        return 0;
+                }
+                else if (result != 1) {
+                        ROS_WARN("I2C_ROS - %s - Write fail:1 Tried 1 Wrote 0",__FUNCTION__);
+                        return 0;
+                }
+        }
+        else {
+                txBuff[0] = reg;
+
+                for (i = 0; i < numBytes; i++)
+                        txBuff[i+1] = bytes[i];
+
+                result = write(i2c_fd, txBuff, numBytes + 1);
+
+                if (result < 0) {
+                        ROS_WARN("I2C_ROS - %s - error Write:2",__FUNCTION__);
+                        return 0;
+                }
+                else if (result < (int)numBytes) {
+                        ROS_WARN("I2C_ROS - %s - Write fail:2 Tried %u Wrote %d",__FUNCTION__,numBytes, result); 
+                        return 0;
+                }
+        }
+  
     return 1;
+}
+
+int I2Ckernel::i2c_select_slave(unsigned char slave_addr)
+{
+        if (current_slave == slave_addr)
+                return 0;
+
+        if (ioctl(i2c_fd, I2C_SLAVE, slave_addr) < 0) {
+                ROS_WARN("I2C_ROS - %s - Failed to Select I2C Slave %x", __FUNCTION__,slave_addr);
+                return -1;
+        }
+
+        current_slave = slave_addr;
+
+        return 0;
 }

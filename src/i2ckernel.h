@@ -50,6 +50,11 @@ public:
 
     int read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes);
     int write(uint8_t address, uint8_t reg,uint8_t* bytes, int numBytes);
+private:
+  int i2c_select_slave(unsigned char slave_addr);
+  int i2c_fd;
+  int current_slave;
+  unsigned char txBuff[MAX_WRITE_LEN + 1];
 };
 
 }
