@@ -95,7 +95,7 @@ catkin_package(
 include_directories(include ${mpsse_INCLUDE_DIRS})
 
 ## Declare a cpp library
-add_library(i2c_ros src/i2cros.cpp)
+add_library(i2c_ros src/i2cros.cpp src/i2cmpsse.cpp src/i2ckernel.cpp)
 
 ## Declare a cpp executable
 # add_executable(i2c_ros_node src/i2cros.cpp src/I2Cmpsse.cpp src/I2Ckernel.cpp)

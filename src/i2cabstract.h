@@ -4,13 +4,11 @@
 class I2Cabstract
 {
 public:
-    I2Cabstract();
+    virtual void open()=0;
+    virtual void close()=0;
 
-    open();
-    close();
-
-    read();
-    write();
+    virtual void read()=0;
+    virtual void write()=0;
 };
 
 #endif // I2CABSTRACT_H

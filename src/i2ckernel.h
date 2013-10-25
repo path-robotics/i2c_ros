@@ -1,7 +1,7 @@
 #ifndef I2CKERNEL_H
 #define I2CKERNEL_H
 
-class I2Cabstract;
+#include "i2cabstract.h"
 
 class I2Ckernel : public I2Cabstract
 {

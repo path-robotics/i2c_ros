@@ -1,7 +1,7 @@
 #ifndef I2CMPSSE_H
 #define I2CMPSSE_H
 
-class I2Cabstract;
+#include "i2cabstract.h"
 
 class I2Cmpsse : public I2Cabstract
 {
