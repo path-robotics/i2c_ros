@@ -25,8 +25,8 @@ public:
     virtual void open(i2c_paramaters& parameters)=0;
     virtual void close()=0;
 
-    virtual void read(unsigned char address, unsigned char* bytes, int numBytes)=0;
-    virtual void write(unsigned char address, unsigned char* bytes, int numBytes)=0;
+    virtual bool read(char address, char* bytes, int numBytes)=0;
+    virtual bool write(char address, char* bytes, int numBytes)=0;
 };
 
 #endif // I2CABSTRACT_H

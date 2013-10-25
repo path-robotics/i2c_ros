@@ -6,7 +6,11 @@
 class I2Ckernel : public I2Cabstract
 {
 public:
-    I2Ckernel();
+    void open(i2c_paramaters& parameters);
+    void close();
+
+    bool read(char address, char* bytes, int numBytes);
+    bool write(char address, char* bytes, int numBytes);
 };
 
 #endif // I2CKERNEL_H
