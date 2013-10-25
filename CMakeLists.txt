@@ -95,10 +95,10 @@ catkin_package(
 include_directories(include ${mpsse_INCLUDE_DIRS})
 
 ## Declare a cpp library
-add_library(i2c_ros src/i2c_ros.cpp)
+add_library(i2c_ros src/i2cros.cpp)
 
 ## Declare a cpp executable
-# add_executable(i2c_ros_node src/i2c_ros.cpp src/I2Cmpsse.cpp src/I2Ckernel.cpp)
+# add_executable(i2c_ros_node src/i2cros.cpp src/I2Cmpsse.cpp src/I2Ckernel.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
