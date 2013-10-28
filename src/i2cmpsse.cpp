@@ -72,13 +72,13 @@ void I2Cmpsse::close(){
     Close(i2c);
 }
 
-bool I2Cmpsse::read(char address, char* bytes, int numBytes){
+bool I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
 
     Start(i2c);
 
     address=(address<<1)|1; //shift to 7bit address and add read bit
 
-    Write(i2c,&address,1);
+    Write(i2c,reinterpret_cast<char*>(&address),1);
 
     ROS_DEBUG("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
 
@@ -94,16 +94,16 @@ bool I2Cmpsse::read(char address, char* bytes, int numBytes){
 }
 
 
-bool I2Cmpsse::write(char address, char* bytes, int numBytes){
+bool I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
 
 
     address<<=1;  //shift to 7bit address
     Start(i2c);
-    Write(i2c,&address,1);
+    Write(i2c,reinterpret_cast<char*>(&address),1);
 
     ROS_DEBUG("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
 
-    Write(i2c,bytes,numBytes);
+    Write(i2c,reinterpret_cast<char*>(bytes),numBytes);
     Stop(i2c);
 
     //TODO: check GetACK use

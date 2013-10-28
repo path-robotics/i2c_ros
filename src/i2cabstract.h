@@ -39,6 +39,8 @@
 #ifndef I2CABSTRACT_H
 #define I2CABSTRACT_H
 
+#include <stdint.h>
+
 namespace cereal_comm{
 
 typedef struct _parameters{
@@ -64,8 +66,8 @@ public:
     virtual void open(i2c_paramaters& parameters)=0;
     virtual void close()=0;
 
-    virtual bool read(char address, char* bytes, int numBytes)=0;
-    virtual bool write(char address, char* bytes, int numBytes)=0;
+    virtual bool read(uint8_t address, uint8_t* bytes, int numBytes)=0;
+    virtual bool write(uint8_t address, uint8_t* bytes, int numBytes)=0;
 };
 
 }

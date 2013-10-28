@@ -51,10 +51,10 @@ void I2Ckernel::close(){
 
 }
 
-bool I2Ckernel::read(char address, char* bytes, int numBytes){
+bool I2Ckernel::read(uint8_t address, uint8_t* bytes, int numBytes){
 
 }
 
-bool I2Ckernel:: write(char address, char* bytes, int numBytes){
+bool I2Ckernel:: write(uint8_t address, uint8_t* bytes, int numBytes){
 
 }

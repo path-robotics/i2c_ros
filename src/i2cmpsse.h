@@ -51,8 +51,8 @@ public:
     void open(i2c_paramaters& parameters);
     void close();
 
-    bool read(char address, char *bytes, int numBytes);
-    bool write(char address, char* bytes, int numBytes);
+    bool read(uint8_t address, uint8_t *bytes, int numBytes);
+    bool write(uint8_t address, uint8_t* bytes, int numBytes);
 
 
 protected:
