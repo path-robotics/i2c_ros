@@ -105,7 +105,7 @@ add_library(i2c_ros src/i2cros.cpp src/i2cmpsse.cpp src/i2ckernel.cpp)
 # add_dependencies(i2c_ros_node i2c_ros_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(i2c_ros ${catkin_LIBRARIES} mpsse)
+target_link_libraries(i2c_ros ${catkin_LIBRARIES} -lmpsse)
 
 #############
 ## Install ##
