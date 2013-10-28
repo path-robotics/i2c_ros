@@ -72,7 +72,7 @@ void I2Cmpsse::close(){
     Close(i2c);
 }
 
-bool I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
+int I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
 
     Start(i2c);
 
@@ -88,13 +88,14 @@ bool I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
     free(buffer);
     Stop(i2c);
 
-    //TODO: check GetACK use
-    return true;
+    //TODO: check GetACK use and return bytes read
+
+    return 0;
 
 }
 
 
-bool I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
+int I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
 
 
     address<<=1;  //shift to 7bit address
@@ -106,8 +107,8 @@ bool I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
     Write(i2c,reinterpret_cast<char*>(bytes),numBytes);
     Stop(i2c);
 
-    //TODO: check GetACK use
-    return true;
+    //TODO: check GetACK use and return bytes written
+    return 0;
 
 
 }

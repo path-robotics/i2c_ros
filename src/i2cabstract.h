@@ -66,8 +66,8 @@ public:
     virtual void open(i2c_paramaters& parameters)=0;
     virtual void close()=0;
 
-    virtual bool read(uint8_t address, uint8_t* bytes, int numBytes)=0;
-    virtual bool write(uint8_t address, uint8_t* bytes, int numBytes)=0;
+    virtual int read(uint8_t address, uint8_t* bytes, int numBytes)=0;
+    virtual int write(uint8_t address, uint8_t* bytes, int numBytes)=0;
 };
 
 }
