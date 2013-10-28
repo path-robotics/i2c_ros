@@ -2,7 +2,10 @@
 <package>
   <name>i2c_ros</name>
   <version>0.0.0</version>
-  <description>The i2c_ros package</description>
+  <description>Simple i2c library to use mpsse devices (ftdi ft232h, ft2232x ... ) or the i2c kernel module 
+
+   (ftdi part using libmpsse(http://code.google.com/p/libmpsse/) )
+  </description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
