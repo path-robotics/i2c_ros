@@ -2,7 +2,7 @@
 <package>
   <name>i2c_ros</name>
   <version>0.0.0</version>
-  <description>Simple i2c library to use mpsse devices (ftdi ft232h, ft2232x ... ) or the i2c kernel module 
+  <description>Simple I2C Service to use mpsse devices (ftdi ft232h, ft2232x ... ) or the i2c kernel module
 
    (ftdi part using libmpsse(http://code.google.com/p/libmpsse/) )
   </description>
@@ -46,9 +46,9 @@
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
-  <build_depend>rospy</build_depend>
+   <build_depend>std_msgs</build_depend>
   <run_depend>roscpp</run_depend>
-  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

@@ -1,0 +1,9 @@
+uint8 READ=1
+uint8 WRITE=0
+
+uint8 operation
+string address
+uint8[] data
+---
+bool ok
+uint8[] data

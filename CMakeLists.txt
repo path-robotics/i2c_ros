@@ -6,7 +6,8 @@ project(i2c_ros)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  rospy
+  std_msgs
+  genmsg
 )
 
 ## System dependencies are found with CMake's conventions
@@ -50,11 +51,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  i2c.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -64,10 +64,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+   DEPENDENCIES
+   std_msgs  # Or other packages containing msgs
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -78,12 +78,12 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES i2c_ros
+#catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES i2c_ros
 #  CATKIN_DEPENDS roscpp rospy
-  DEPENDS mpsse
-)
+#  DEPENDS mpsse
+#)
 
 ###########
 ## Build ##
@@ -95,9 +95,10 @@ catkin_package(
 include_directories(include ${mpsse_INCLUDE_DIRS})
 
 ## Declare a cpp library
-add_library(i2c_ros src/i2cros.cpp src/i2cmpsse.cpp src/i2ckernel.cpp)
+#add_library(i2c_ros src/i2cros.cpp src/i2cmpsse.cpp src/i2ckernel.cpp src/main.cpp)
 
 ## Declare a cpp executable
+add_executable(i2c_ros src/i2cros.cpp src/i2cmpsse.cpp src/i2ckernel.cpp src/main.cpp)
 # add_executable(i2c_ros_node src/i2cros.cpp src/I2Cmpsse.cpp src/I2Ckernel.cpp)
 
 ## Add cmake target dependencies of the executable/library

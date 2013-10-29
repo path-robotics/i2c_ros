@@ -35,7 +35,7 @@
 * Author: Bruno Gouveia on 10/28/2013
 *********************************************************************/
 
-#include "i2c_ros/i2cros.h"
+#include "i2cros.h"
 #include "i2cmpsse.h"
 #include "i2ckernel.h"
 
@@ -81,3 +81,5 @@ int I2Cros::write(uint8_t address, uint8_t* bytes, int numBytes){
     //TODO: return bytes written
     i2c->write(address, bytes, numBytes);
 }
+
+
