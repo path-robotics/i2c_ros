@@ -28,7 +28,7 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
         break;
 
     default:
-        ROS_INFO("I2C_ROS - %s - unknown operation", __FUNCTION__);
+        ROS_WARN("I2C_ROS - %s - unknown operation", __FUNCTION__);
         return false;
 
     }
@@ -41,6 +41,7 @@ int main(int argc, char **argv){
 
     ros::init(argc, argv, "i2c_ros");
 
+    ros::NodeHandle n;
     ros::NodeHandle pn("~");
 
     /****
@@ -83,7 +84,7 @@ int main(int argc, char **argv){
 
     }
 
-    ros::ServiceServer service = pn.advertiseService("i2c_operation", i2c_operation);
+    ros::ServiceServer service = n.advertiseService("i2c_operation", i2c_operation);
     ros::spin();
     return 0;
 
