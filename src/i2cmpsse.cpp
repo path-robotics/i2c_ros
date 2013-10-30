@@ -34,13 +34,11 @@
 *
 * Author: Bruno Gouveia on 10/28/2013
 *********************************************************************/
+#include <ros/ros.h>
+#include "i2cmpsse.h"
 extern "C"{
 #include <mpsse.h>
 }
-
-#include "i2cmpsse.h"
-#include "i2cabstract.h"
-#include <ros/ros.h>
 
 using namespace cereal_comm;
 

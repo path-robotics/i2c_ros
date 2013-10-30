@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(i2c_ros)
 
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -9,6 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   genmsg
 )
+
+SET(CMAKE_BUILD_TYPE Debug)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -24,7 +27,7 @@ find_package(catkin REQUIRED COMPONENTS
 ################################################
 
 ## To declare and build messages, services or actions from within this
-## package, follow these steps:
+## package, follow thesinstall(TARGETe steps:
 ## * Let MSG_DEP_SET be the set of packages whose message types you use in
 ##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
 ## * In the file package.xml:
@@ -106,7 +109,7 @@ add_executable(i2c_ros src/i2cros.cpp src/i2cmpsse.cpp src/i2ckernel.cpp src/mai
 # add_dependencies(i2c_ros_node i2c_ros_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(i2c_ros ${catkin_LIBRARIES} -lmpsse)
+target_link_libraries(i2c_ros mpsse ${catkin_LIBRARIES})
 
 #############
 ## Install ##

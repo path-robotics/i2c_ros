@@ -36,8 +36,6 @@
 *********************************************************************/
 
 #include "i2ckernel.h"
-#include "i2cabstract.h"
-
 
 using namespace cereal_comm;
 

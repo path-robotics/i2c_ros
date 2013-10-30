@@ -1,18 +1,36 @@
 #include <ros/ros.h>
-extern "C"{
-#include <mpsse.h>
-}
 #include "i2cros.h"
 #include "i2c_ros/i2c.h"
 
+#if LIBFTDI1 == 1
+#include <libftdi1/ftdi.h>
+#else
+#include <ftdi.h>
+#endif
+
+cereal_comm::I2Cros * i2c;
 
 bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 {
-  /*res.sum = req.a + req.b;
-  ROS_INFO("request: x=%ld, y=%ld", (long int)req.a, (long int)req.b);
-  ROS_INFO("sending back response: [%ld]", (long int)res.sum);*/
 
-  return true;
+    switch(req.operation){
+
+    case i2c_ros::i2cRequest::READ:
+
+
+        break;
+    case i2c_ros::i2cRequest::WRITE:
+        //i2c->write(req.address,req.data.)
+
+        break;
+
+    default:
+        ROS_INFO("I2C_ROS - %s - unknown operation", __FUNCTION__);
+        return false;
+
+    }
+
+    return false;
 }
 
 
@@ -21,8 +39,6 @@ int main(int argc, char **argv){
     ros::init(argc, argv, "i2c_ros");
 
     ros::NodeHandle pn("~");
-
-    cereal_comm::I2Cros * i2c;
 
     /****
         * Hardware Parameters
@@ -50,7 +66,7 @@ int main(int argc, char **argv){
 
         pn.param<int>("usb_vid", vid,0x0403);
         pn.param<int>("usb_pid", pid ,0x6014);
-        pn.param<int>("ftdi_interface", ftdi_interface,IFACE_ANY);
+        pn.param<int>("ftdi_interface", ftdi_interface,INTERFACE_ANY);
         pn.param<std::string>("usb_descriprequesttion",usb_description,"");
         pn.param<std::string>("usb_serial",usb_serial,"");
         pn.param<int>("adapter_index",adapter_index ,-1);
