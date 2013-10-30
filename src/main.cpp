@@ -12,16 +12,19 @@ cereal_comm::I2Cros * i2c;
 
 bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 {
+    int ok;
 
     switch(req.operation){
 
     case i2c_ros::i2cRequest::READ:
-
-
+        res.data.resize(req.size);
+        ok = i2c->read(req.address,res.data.data(),req.size);
         break;
-    case i2c_ros::i2cRequest::WRITE:
-        //i2c->write(req.address,req.data.)
 
+    case i2c_ros::i2cRequest::WRITE:
+
+        ok = i2c->write(req.address,req.data.data(),req.data.size());
+        res.ok=(ok==1)?true:false;
         break;
 
     default:
@@ -30,7 +33,7 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 
     }
 
-    return false;
+    return res.ok;
 }
 
 

@@ -51,11 +51,11 @@ void I2Ckernel::close(){
 
 int I2Ckernel::read(uint8_t address, uint8_t* bytes, int numBytes){
     //TODO: return bytes read
-    return 0;
+    return 1;
 
 }
 
 int I2Ckernel:: write(uint8_t address, uint8_t* bytes, int numBytes){
     //TODO: return bytes written
-    return 0;
+    return 1;
 }

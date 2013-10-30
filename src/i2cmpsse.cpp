@@ -90,7 +90,7 @@ int I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
 
     //TODO: check GetACK use and return bytes read
 
-    return 0;
+    return 1;
 
 }
 
@@ -108,7 +108,7 @@ int I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
     Stop(i2c);
 
     //TODO: check GetACK use and return bytes written
-    return 0;
+    return 1;
 
 
 }

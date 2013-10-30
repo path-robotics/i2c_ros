@@ -2,8 +2,9 @@ uint8 READ=1
 uint8 WRITE=0
 
 uint8 operation
-string address
+uint8 address
 uint8[] data
+uint32 size
 ---
 bool ok
 uint8[] data

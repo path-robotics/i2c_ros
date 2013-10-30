@@ -11,7 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   genmsg
 )
 
-SET(CMAKE_BUILD_TYPE Debug)
+SET(CMAKE_BUILD_TYPE RelWithDebInfo)
+#SET (CMAKE_C_COMPILER	"/usr/bin/clang")
+#SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
