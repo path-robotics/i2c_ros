@@ -8,7 +8,7 @@ project(i2c_ros)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
-  genmsg
+  message_generation
 )
 
 SET(CMAKE_BUILD_TYPE Debug)
@@ -83,12 +83,12 @@ generate_messages(
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-#catkin_package(
+catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES i2c_ros
-#  CATKIN_DEPENDS roscpp rospy
+   CATKIN_DEPENDS message_runtime std_msgs
 #  DEPENDS mpsse
-#)
+)
 
 ###########
 ## Build ##
@@ -97,7 +97,7 @@ generate_messages(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories(include ${mpsse_INCLUDE_DIRS})
+include_directories(include ${catkin_INCLUDE_DIRS} ${mpsse_INCLUDE_DIRS})
 
 ## Declare a cpp library
 #add_library(i2c_ros src/i2cros.cpp src/i2cmpsse.cpp src/i2ckernel.cpp src/main.cpp)
