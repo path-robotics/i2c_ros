@@ -22,9 +22,7 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
         break;
 
     case i2c_ros::i2cRequest::WRITE:
-
         ok = i2c->write(req.address,req.data.data(),req.data.size());
-        res.ok=(ok==1)?true:false;
         break;
 
     default:
@@ -33,6 +31,7 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 
     }
 
+    res.ok=(ok==1)?true:false;
     return res.ok;
 }
 

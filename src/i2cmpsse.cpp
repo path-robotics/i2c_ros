@@ -80,7 +80,7 @@ int I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
 
     Write(i2c,reinterpret_cast<char*>(&address),1);
 
-    ROS_DEBUG("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
+    ROS_INFO("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
 
     char * buffer = NULL;
     buffer=Read(i2c,numBytes);
@@ -102,7 +102,7 @@ int I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
     Start(i2c);
     Write(i2c,reinterpret_cast<char*>(&address),1);
 
-    ROS_DEBUG("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
+    ROS_INFO("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
 
     Write(i2c,reinterpret_cast<char*>(bytes),numBytes);
     Stop(i2c);
