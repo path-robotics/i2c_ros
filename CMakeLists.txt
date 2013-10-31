@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-SET(CMAKE_BUILD_TYPE Debug)
+#SET(CMAKE_BUILD_TYPE Debug)
 #SET (CMAKE_C_COMPILER	"/usr/bin/clang")
 #SET (CMAKE_CXX_COMPILER "/usr/bin/clang++")
 

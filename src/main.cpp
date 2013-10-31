@@ -12,6 +12,19 @@ cereal_comm::I2Cros * i2c;
 
 bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 {
+
+    /*ROS_INFO("#########req######");
+
+
+    ROS_INFO("operation: %d",req.operation);
+    ROS_INFO("address: %x",req.address);
+    ROS_INFO("size: %u",req.size);
+    for (int i=0;i<res.data.size();i++){
+        ROS_INFO("data[%d]: %x",i,res.data[i]);
+    }
+    ROS_INFO("#######################");*/
+
+
     int ok;
 
     switch(req.operation){
@@ -19,6 +32,13 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
     case i2c_ros::i2cRequest::READ:
         res.data.resize(req.size);
         ok = i2c->read(req.address,res.data.data(),req.size);
+
+        /*ROS_INFO("#########res.data######");
+        for (int i=0;i<res.data.size();i++){
+            ROS_INFO("data[%d]: %x",i,res.data[i]);
+        }
+        ROS_INFO("#######################");*/
+
         break;
 
     case i2c_ros::i2cRequest::WRITE:

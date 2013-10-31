@@ -76,14 +76,24 @@ int I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
 
     Start(i2c);
 
+    //ROS_INFO("I2C_ROS - %s - Address : %x", __FUNCTION__,address);
+
     address=(address<<1)|1; //shift to 7bit address and add read bit
 
-    Write(i2c,reinterpret_cast<char*>(&address),1);
+    Write(i2c,(char*)(&address),1);
 
-    ROS_INFO("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
+
+    //ROS_INFO("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
 
     char * buffer = NULL;
     buffer=Read(i2c,numBytes);
+
+    /*ROS_INFO("#########buffer######");
+    for (int i=0;i<numBytes;i++){
+        ROS_INFO("buffer[%d]: %x",i,buffer[i]);
+    }
+    ROS_INFO("#######################");*/
+
     memcpy(bytes,buffer,numBytes);
     free(buffer);
     Stop(i2c);
@@ -100,11 +110,11 @@ int I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
 
     address<<=1;  //shift to 7bit address
     Start(i2c);
-    Write(i2c,reinterpret_cast<char*>(&address),1);
+    Write(i2c,(char*)(&address),1);
 
-    ROS_INFO("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
+    //ROS_INFO("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
 
-    Write(i2c,reinterpret_cast<char*>(bytes),numBytes);
+    Write(i2c,(char*)(bytes),numBytes);
     Stop(i2c);
 
     //TODO: check GetACK use and return bytes written
