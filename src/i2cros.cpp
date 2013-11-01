@@ -39,7 +39,7 @@
 #include "i2cmpsse.h"
 #include "i2ckernel.h"
 
-using namespace cereal_comm;
+using namespace cereal;
 
 I2Cros::I2Cros(bool fast,char * linuxdevice){
 

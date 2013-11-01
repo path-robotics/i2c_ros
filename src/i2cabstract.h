@@ -41,7 +41,7 @@
 
 #include <stdint.h>
 
-namespace cereal_comm{
+namespace cereal{
 
 typedef struct _parameters{
     bool fast;

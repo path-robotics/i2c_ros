@@ -8,7 +8,7 @@
 #include <ftdi.h>
 #endif
 
-cereal_comm::I2Cros * i2c;
+cereal::I2Cros * i2c;
 
 bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 {
@@ -81,7 +81,7 @@ int main(int argc, char **argv){
     //using linux module for i2c
     if (pn.getParam("devicename", devicename))
     {
-        i2c = new cereal_comm::I2Cros(true,(char*)devicename.c_str());
+        i2c = new cereal::I2Cros(true,(char*)devicename.c_str());
         ROS_INFO("i2c_ros node - %s - Successfully connected using %s !",__FUNCTION__,devicename.c_str());
     }
     else //using ftdi
@@ -97,7 +97,7 @@ int main(int argc, char **argv){
         char * c_usb_description = (usb_description.size()>0)?(char*)usb_description.c_str():NULL;
         char * c_usb_serial = (usb_serial.size()>0)?(char*)usb_serial.c_str():NULL;
 
-        i2c = new cereal_comm::I2Cros(true,vid,pid,ftdi_interface,c_usb_description,c_usb_serial,adapter_index);
+        i2c = new cereal::I2Cros(true,vid,pid,ftdi_interface,c_usb_description,c_usb_serial,adapter_index);
 
         ROS_INFO("i2c_ros node - %s - Successfully connected using FTDI !",__FUNCTION__);
 

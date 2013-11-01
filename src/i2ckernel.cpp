@@ -37,7 +37,7 @@
 
 #include "i2ckernel.h"
 
-using namespace cereal_comm;
+using namespace cereal;
 
 //TODO: use of linux i2c dev
 

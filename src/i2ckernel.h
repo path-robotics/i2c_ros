@@ -40,7 +40,7 @@
 
 #include "i2cabstract.h"
 
-namespace cereal_comm{
+namespace cereal{
 
 class I2Ckernel : public I2Cabstract
 {

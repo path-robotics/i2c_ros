@@ -40,7 +40,7 @@ extern "C"{
 #include <mpsse.h>
 }
 
-using namespace cereal_comm;
+using namespace cereal;
 
 void I2Cmpsse::open(i2c_paramaters& parameters){
 

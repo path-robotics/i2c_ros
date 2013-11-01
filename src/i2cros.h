@@ -40,7 +40,7 @@
 
 #include <stdint.h>
 
-namespace cereal_comm{
+namespace cereal{
 
 class I2Cabstract;
 

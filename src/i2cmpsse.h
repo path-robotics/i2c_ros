@@ -42,7 +42,7 @@
 
 struct mpsse_context;
 
-namespace cereal_comm{
+namespace cereal{
 
 class I2Cmpsse : public I2Cabstract
 {
