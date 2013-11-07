@@ -13,7 +13,7 @@ cereal::I2Cros * i2c;
 bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 {
 
-    ROS_INFO("#########req######");
+    /*ROS_INFO("#########req######");
 
 
     ROS_INFO("operation: %d",req.operation);
@@ -22,7 +22,7 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
     for (int i=0;i<res.data.size();i++){
         ROS_INFO("data[%d]: %x",i,res.data[i]);
     }
-    ROS_INFO("#######################");
+    ROS_INFO("#######################");*/
 
 
     int ok;
