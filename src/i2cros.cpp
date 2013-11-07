@@ -72,15 +72,15 @@ I2Cros::~I2Cros(){
     i2c->close();
 }
 
-int I2Cros::read(uint8_t address, uint8_t* bytes, int numBytes){
+int I2Cros::read(uint8_t address,uint8_t reg, uint8_t* bytes, int numBytes){
     //TODO: return bytes read
-    return i2c->read(address, bytes, numBytes);
+    return i2c->read(address,reg, bytes, numBytes);
 
 }
 
-int I2Cros::write(uint8_t address, uint8_t* bytes, int numBytes){
+int I2Cros::write(uint8_t address,uint8_t reg, uint8_t* bytes, int numBytes){
     //TODO: return bytes written
-    return i2c->write(address, bytes, numBytes);
+    return i2c->write(address,reg, bytes, numBytes);
 }
 
 

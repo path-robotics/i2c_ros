@@ -13,7 +13,7 @@ cereal::I2Cros * i2c;
 bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 {
 
-    /*ROS_INFO("#########req######");
+    ROS_INFO("#########req######");
 
 
     ROS_INFO("operation: %d",req.operation);
@@ -22,7 +22,7 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
     for (int i=0;i<res.data.size();i++){
         ROS_INFO("data[%d]: %x",i,res.data[i]);
     }
-    ROS_INFO("#######################");*/
+    ROS_INFO("#######################");
 
 
     int ok;
@@ -31,7 +31,7 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 
     case i2c_ros::i2cRequest::READ:
         res.data.resize(req.size);
-        ok = i2c->read(req.address,res.data.data(),req.size);
+        ok = i2c->read(req.address,req.reg,res.data.data(),req.size);
 
         /*ROS_INFO("#########res.data######");
         for (int i=0;i<res.data.size();i++){
@@ -42,7 +42,7 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
         break;
 
     case i2c_ros::i2cRequest::WRITE:
-        ok = i2c->write(req.address,req.data.data(),req.data.size());
+        ok = i2c->write(req.address,req.reg,req.data.data(),req.data.size());
         break;
 
     default:

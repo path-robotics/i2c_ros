@@ -72,14 +72,16 @@ void I2Cmpsse::close(){
     Close(i2c);
 }
 
-int I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
+int I2Cmpsse::read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
+
+    //write register
+    write(address,reg, NULL,0);
 
     Start(i2c);
 
     //ROS_INFO("I2C_ROS - %s - Address : %x", __FUNCTION__,address);
 
     address=(address<<1)|1; //shift to 7bit address and add read bit
-
     Write(i2c,(char*)(&address),1);
 
 
@@ -105,7 +107,7 @@ int I2Cmpsse::read(uint8_t address, uint8_t* bytes, int numBytes){
 }
 
 
-int I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
+int I2Cmpsse::write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
 
 
     address<<=1;  //shift to 7bit address
@@ -114,11 +116,15 @@ int I2Cmpsse::write(uint8_t address, uint8_t* bytes, int numBytes){
 
     //ROS_INFO("I2C_ROS - %s - GetACK= %d", __FUNCTION__,GetAck(i2c));
 
-    Write(i2c,(char*)(bytes),numBytes);
-    Stop(i2c);
+    if (numBytes == 0) {
+        Write(i2c,(char*)(&reg),1);
+        return 1;
+    }else {
+        Write(i2c,(char*)(&reg),1);
+        Write(i2c,(char*)(bytes),numBytes);
+        Stop(i2c);
+    }
 
     //TODO: check GetACK use and return bytes written
     return 1;
-
-
 }

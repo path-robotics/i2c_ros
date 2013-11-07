@@ -50,8 +50,8 @@ public:
     I2Cros(bool fast,char * linuxdevice);
     I2Cros(bool fast,int vid,int pid,int interface=0,char * description=0,char * serial=0,int index=-1);
     ~I2Cros();
-    int read(uint8_t address, uint8_t* bytes, int numBytes);
-    int write(uint8_t address, uint8_t* bytes, int numBytes);
+    int read(uint8_t address,uint8_t reg, uint8_t* bytes, int numBytes);
+    int write(uint8_t address,uint8_t reg, uint8_t* bytes, int numBytes);
 
 private:
     I2Cabstract * i2c;
