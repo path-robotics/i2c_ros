@@ -103,7 +103,7 @@ int main(int argc, char **argv){
 
     }
 
-    ros::ServiceServer service = n.advertiseService("i2c_operation", i2c_operation);
+    ros::ServiceServer service = pn.advertiseService("i2c_operation", i2c_operation);
     ros::spin();
     return 0;
 
