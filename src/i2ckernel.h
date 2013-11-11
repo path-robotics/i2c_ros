@@ -39,6 +39,7 @@
 #define I2CKERNEL_H
 
 #include "i2cabstract.h"
+#define MAX_WRITE_LEN 511
 
 namespace cereal{
 
