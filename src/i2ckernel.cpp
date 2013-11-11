@@ -34,22 +34,23 @@
 *
 * Author: Bruno Gouveia on 10/28/2013
 *********************************************************************/
+#include <ros/ros.h>
+#include "i2ckernel.h"
+#include <linux/i2c-dev.h>
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <fcntl.h>
-#include <linux/i2c-dev.h>
-#include <ros/ros.h>
-#include "i2ckernel.h"
 
 using namespace cereal;
 
 //TODO: use of linux i2c dev
 
-void I2Ckernel::open(i2c_paramaters& parameters){
+void I2Ckernel::_open(i2c_paramaters& parameters){
   
   //TODO: check if changing speed is possible from driver
    if (!i2c_fd) {
@@ -65,7 +66,7 @@ void I2Ckernel::open(i2c_paramaters& parameters){
 
 }
 
-void I2Ckernel::close(){
+void I2Ckernel::_close(){
 	if (i2c_fd) {
                 close(i2c_fd);
                 i2c_fd = 0;
@@ -73,11 +74,11 @@ void I2Ckernel::close(){
         }
 }
 
-int I2Ckernel::read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
+int I2Ckernel::_read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
     
    int tries, result, total;
 
-        if (write(address, reg, NULL,0))
+        if (_write(address, reg, NULL,0))
                 return -1;
 
         total = 0;
@@ -93,7 +94,7 @@ int I2Ckernel::read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
 
                 total += result;
 
-                if (total == length)
+                if (total == numBytes)
                         break;
 
                 tries++;    
@@ -106,7 +107,7 @@ int I2Ckernel::read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
     return 1;
 }
 
-int I2Ckernel:: write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
+int I2Ckernel::_write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
     
   int result, i;
 
@@ -118,7 +119,7 @@ int I2Ckernel:: write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes
         if (i2c_select_slave(address))
                 return 0;
 
-        if (length == 0) {
+        if (numBytes == 0) {
                 result = write(i2c_fd, &reg, 1);
 
                 if (result < 0) {

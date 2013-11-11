@@ -42,7 +42,7 @@ extern "C"{
 
 using namespace cereal;
 
-void I2Cmpsse::open(i2c_paramaters& parameters){
+void I2Cmpsse::_open(i2c_paramaters& parameters){
 
     if (parameters.fast){
 
@@ -68,14 +68,14 @@ void I2Cmpsse::open(i2c_paramaters& parameters){
 
 }
 
-void I2Cmpsse::close(){
+void I2Cmpsse::_close(){
     Close(i2c);
 }
 
-int I2Cmpsse::read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
+int I2Cmpsse::_read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
 
     //write register
-    write(address,reg, NULL,0);
+    _write(address,reg, NULL,0);
 
     Start(i2c);
 
@@ -107,7 +107,7 @@ int I2Cmpsse::read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
 }
 
 
-int I2Cmpsse::write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
+int I2Cmpsse::_write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
 
 
     address<<=1;  //shift to 7bit address

@@ -49,7 +49,7 @@ I2Cros::I2Cros(bool fast,char * linuxdevice){
     params.devicename=linuxdevice;
 
     i2c = new I2Ckernel();
-    i2c->open(params);
+    i2c->_open(params);
 }
 
 I2Cros::I2Cros(bool fast,int vid,int pid,int interface,char * description,char * serial,int index){
@@ -64,23 +64,23 @@ I2Cros::I2Cros(bool fast,int vid,int pid,int interface,char * description,char *
     params.index=index;
 
     i2c = new I2Cmpsse();
-    i2c->open(params);
+    i2c->_open(params);
 
 }
 
 I2Cros::~I2Cros(){
-    i2c->close();
+    i2c->_close();
 }
 
-int I2Cros::read(uint8_t address,uint8_t reg, uint8_t* bytes, int numBytes){
+int I2Cros::_read(uint8_t address,uint8_t reg, uint8_t* bytes, int numBytes){
     //TODO: return bytes read
-    return i2c->read(address,reg, bytes, numBytes);
+    return i2c->_read(address,reg, bytes, numBytes);
 
 }
 
-int I2Cros::write(uint8_t address,uint8_t reg, uint8_t* bytes, int numBytes){
+int I2Cros::_write(uint8_t address,uint8_t reg, uint8_t* bytes, int numBytes){
     //TODO: return bytes written
-    return i2c->write(address,reg, bytes, numBytes);
+    return i2c->_write(address,reg, bytes, numBytes);
 }
 
 

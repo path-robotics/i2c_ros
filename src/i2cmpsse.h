@@ -48,11 +48,11 @@ class I2Cmpsse : public I2Cabstract
 {
 public:
 
-    void open(i2c_paramaters& parameters);
-    void close();
+    void _open(i2c_paramaters& parameters);
+    void _close();
 
-    int read(uint8_t address, uint8_t reg, uint8_t *bytes, int numBytes);
-    int write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes);
+    int _read(uint8_t address, uint8_t reg, uint8_t *bytes, int numBytes);
+    int _write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes);
 
 
 protected:

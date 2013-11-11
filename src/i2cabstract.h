@@ -63,11 +63,11 @@ typedef struct _parameters{
 class I2Cabstract
 {
 public:
-    virtual void open(i2c_paramaters& parameters)=0;
-    virtual void close()=0;
+    virtual void _open(i2c_paramaters& parameters)=0;
+    virtual void _close()=0;
 
-    virtual int read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes)=0;
-    virtual int write(uint8_t address, uint8_t reg,  uint8_t* bytes, int numBytes)=0;
+    virtual int _read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes)=0;
+    virtual int _write(uint8_t address, uint8_t reg,  uint8_t* bytes, int numBytes)=0;
 };
 
 }
