@@ -15,9 +15,12 @@ bool i2c_operation(i2c_ros::i2c::Request &req,i2c_ros::i2c::Response &res)
 
     /*ROS_INFO("#########req######");
 
-
-    ROS_INFO("operation: %d",req.operation);
+	if (req.operation==i2c_ros::i2cRequest::READ)
+		ROS_INFO("operation: READ");
+	else
+		ROS_INFO("operation: WRITE");
     ROS_INFO("address: %x",req.address);
+	ROS_INFO("register: %x",req.reg);
     ROS_INFO("size: %u",req.size);
     for (int i=0;i<res.data.size();i++){
         ROS_INFO("data[%d]: %x",i,res.data[i]);

@@ -62,6 +62,8 @@ void I2Ckernel::_open(i2c_paramaters& parameters){
         i2c_fd = 0;
         ROS_BREAK();
       }
+	  
+	  ROS_INFO("I2C_ROS - %s - Opened I2C Bus %s", __FUNCTION__,parameters.devicename);
     }
 
 }
@@ -76,10 +78,12 @@ void I2Ckernel::_close(){
 
 int I2Ckernel::_read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes){
     
-   int tries, result, total;
+		int tries, result, total;
 
-        if (_write(address, reg, NULL,0))
-                return -1;
+        if (!_write(address, reg, NULL,0)){
+			ROS_INFO("I2C_ROS - %s - error writing register %x", __FUNCTION__,reg);
+			return 0;
+		}
 
         total = 0;
         tries = 0;
@@ -98,11 +102,13 @@ int I2Ckernel::_read(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes)
                         break;
 
                 tries++;    
-		usleep(10);
+				usleep(10);
         }
 
-        if (total < numBytes)
+        if (total < numBytes){
+				ROS_INFO("I2C_ROS - %s - error total < numBytes", __FUNCTION__);
                 return 0;
+		}
 	
     return 1;
 }
@@ -112,12 +118,14 @@ int I2Ckernel::_write(uint8_t address, uint8_t reg, uint8_t* bytes, int numBytes
   int result, i;
 
         if (numBytes > MAX_WRITE_LEN) {
-  		ROS_WARN("I2C_ROS - %s - Max write length exceeded", __FUNCTION__);
+				ROS_WARN("I2C_ROS - %s - Max write length exceeded", __FUNCTION__);
                 return 0;
         }
 
-        if (i2c_select_slave(address))
-                return 0;
+        if (i2c_select_slave(address)){
+			ROS_INFO("I2C_ROS - %s - i2c_select_slave(address)", __FUNCTION__);
+			return 0;
+		}
 
         if (numBytes == 0) {
                 result = write(i2c_fd, &reg, 1);
@@ -159,7 +167,7 @@ int I2Ckernel::i2c_select_slave(unsigned char slave_addr)
 
         if (ioctl(i2c_fd, I2C_SLAVE, slave_addr) < 0) {
                 ROS_WARN("I2C_ROS - %s - Failed to Select I2C Slave %x", __FUNCTION__,slave_addr);
-                return -1;
+                return 1;
         }
 
         current_slave = slave_addr;
