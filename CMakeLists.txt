@@ -8,7 +8,7 @@ project(i2c_ros)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
-  genmsg
+  message_generation
 )
 
 #SET(CMAKE_BUILD_TYPE Debug)
@@ -108,7 +108,7 @@ add_executable(i2c_ros src/i2cros.cpp src/i2cmpsse.cpp src/i2ckernel.cpp src/mai
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-add_dependencies(i2c_ros ${PROJECT_NAME}_gencpp)
+add_dependencies(i2c_ros i2c_ros_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(i2c_ros mpsse ${catkin_LIBRARIES})
