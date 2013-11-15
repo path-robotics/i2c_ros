@@ -1,8 +1,7 @@
 <launch>
   <node name="i2c_ros_1" pkg="i2c_ros" type="i2c_ros" >
-  <param name="usb_vid" value=0x0403 />
-  <param name="usb_pid" value=0x6014 />
-  <param name="ftdi_interface" value=0 /> <!--any -->
-  <param name="usb_vid" value=0x0403 />  
+  <param name="usb_vid" value="0x0403" />
+  <param name="usb_pid" value="0x6014" />
+  <param name="ftdi_interface" value="0" type="int"/> <!--any -->
   </node>
 </launch>
